@@ -5,28 +5,21 @@ import config
 
 
 class GraphicEngine:
-    def __init__(self, logic):
-        self.logic = logic(self)
-        self._running = True
-        self.screen = None
-        self._image_surf = None
-        self.size = 10
-        self.max_size = 100
-        self.min_size = 1
-        self.inc = 1
+    def __init__(self):
         self.speed = 0
         self.clock = pygame.time.Clock()
         self.display_options = (pygame.RESIZABLE,)
         self.background = Color("black")
- 
+        self.shapes = []
+
+    def addShape(self, *shapes):
+        self.shapes.extend(shapes)
+
     def on_init(self):
         pygame.init()
-        self.screen = pygame.display.set_mode(config.screen_size, *self.display_options)
+        config.surface = pygame.display.set_mode(config.screen_size, *self.display_options)
         pygame.display.set_caption(config.game_title)
         self._running = True
-        self._image_surf = pygame.image.load("graphic/pics/food.bmp").convert()
-        transColor = self._image_surf.get_at((0,0))
-        self._image_surf.set_colorkey(transColor)
  
     def on_event(self, event):
         if event.type == pygame.QUIT:
@@ -38,24 +31,21 @@ class GraphicEngine:
                 self.speed = 1
             elif event.key == pygame.K_0:
                 self.speed = 999
-                self.screen.fill([0, 0, 0])
+                config.surface.fill([0, 0, 0])
                 font=pygame.font.Font(None,30)
                 scoretext=font.render("Fastforward", 1,(255,255,255))
-                self.screen.blit(scoretext, (20, 20))
+                config.surface.blit(scoretext, (20, 20))
                 pygame.display.flip()
         elif event.type == pygame.VIDEORESIZE:
             config.screen_size = event.size
-            self.screen = pygame.display.set_mode(config.screen_size, *self.display_options)
+            pygame.display.update()
 
     def on_render(self):
         if self.speed <= 1:
-            self.screen.fill(self.background)
+            config.surface.fill(self.background)
 
-            self.screen.blit(self._image_surf,(230,170))
-
-            pygame.draw.circle(self.screen, Color('cyan'), [200,200], self.size)
-
-            self.screen.blit(self._image_surf,(200,170))
+            for shape in self.shapes:
+                shape.draw()
 
             self.clock.tick(config.lock_fps)
             pygame.display.flip()
@@ -64,12 +54,14 @@ class GraphicEngine:
         pygame.quit()
  
     def run(self):
+        self._running = True
         if self.on_init() == False:
             self._running = False
+        config.logic.on_init()
  
         while( self._running ):
             for event in pygame.event.get():
                 self.on_event(event)
-            self.logic.on_loop()
+            config.logic.on_loop()
             self.on_render()
         self.on_cleanup()
