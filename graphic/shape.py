@@ -16,9 +16,9 @@ class ShapeBase:
         raise NotImplementedError()
 
 
-class Circle(ShapeBase):
+class CircleShape(ShapeBase):
     def __init__(self, surface, color, radius, pos=(0,0), width=0):
-        super(Circle, self).__init__(surface, pos)
+        super(CircleShape, self).__init__(surface, pos)
         self.color = color
         self.radius = radius
         self.width = width
@@ -27,20 +27,33 @@ class Circle(ShapeBase):
         pygame.draw.circle(self.surface, self.color, self.pos, self.radius, self.width)
 
 
-class image(ShapeBase):
-    def __init__(self, surface, path, transparency=(0,0), pos=(0,0)):
-        super(image, self).__init__(surface, pos)
+class ImageShape(ShapeBase):
+    cashe = {}
+    def __init__(self, surface, path, pos=(0,0)):
+        super(ImageShape, self).__init__(surface, pos)
         self.path = path
         self.image_surface = False
-        self.transparency = transparency
 
     def draw(self):
-        if not self.surface:
-            self.surface = pygame.image.load("graphic/pics/food.bmp").convert()
-            if self.transparency:
-                transColor = self.surface.get_at((self.transparency))
-                self.surface.set_colorkey(transColor)
+        if not self.image_surface:
+            if self.path in self.cashe:
+                self.cashe[self.path][0] += 1
+                self.image_surface = self.cashe[self.path][1]
+            else:
+                self.image_surface = pygame.image.load(self.path).convert()
+                transColor = self.surface.get_at((0,0))
+                self.image_surface.set_colorkey(transColor)
+                self.cashe[self.path] = [1, self.surface]
         self.surface.blit(self.image_surface, self.pos)
+
+    def reset(self):
+        self.image_surface = False
+        self.cashe[self.path][0] -= 1
+        if self.cashe[self.path][0] == 0:
+            del self.cashe[self.path]
+
+    def __del__(self):
+        self.reset()
 
 
 class Shape():
