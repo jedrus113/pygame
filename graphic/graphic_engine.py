@@ -15,11 +15,12 @@ class GraphicEngine:
         self.inc = 1
         self.speed = 0
         self.clock = pygame.time.Clock()
+        self.display_options = (pygame.RESIZABLE,)
  
     def on_init(self):
         pygame.init()
-        self.screen = pygame.display.set_mode(config.screen_size, pygame.HWSURFACE, pygame.RESIZABLE)
-        self.screen = pygame.display.set_caption(config.game_title)
+        self.screen = pygame.display.set_mode(config.screen_size, *self.display_options)
+        pygame.display.set_caption(config.game_title)
         self._running = True
         self._image_surf = pygame.image.load("graphic/pics/food.bmp").convert()
         transColor = self._image_surf.get_at((0,0))
@@ -42,7 +43,7 @@ class GraphicEngine:
                 pygame.display.flip()
         elif event.type == pygame.VIDEORESIZE:
             config.screen_size = event.size
-            self.screen = pygame.display.set_mode(config.screen_size, pygame.RESIZABLE)
+            self.screen = pygame.display.set_mode(config.screen_size, *self.display_options)
 
     def on_loop(self):
         pass
