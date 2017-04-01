@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import Color
 
 #http://pygametutorials.wikidot.com/tutorials-three
 import config
@@ -16,6 +17,7 @@ class GraphicEngine:
         self.speed = 0
         self.clock = pygame.time.Clock()
         self.display_options = (pygame.RESIZABLE,)
+        self.background = Color("black")
  
     def on_init(self):
         pygame.init()
@@ -52,11 +54,11 @@ class GraphicEngine:
 
     def on_render(self):
         if self.speed <= 1:
-            self.screen.fill([0, 0, 0])
+            self.screen.fill(self.background)
 
             self.screen.blit(self._image_surf,(230,170))
 
-            pygame.draw.circle(self.screen, (0, 255, 255), [200,200], self.size)
+            pygame.draw.circle(self.screen, Color('cyan'), [200,200], self.size)
 
             self.screen.blit(self._image_surf,(200,170))
 
