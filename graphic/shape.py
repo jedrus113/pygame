@@ -1,9 +1,10 @@
 import pygame
 
+import config
 
-class ShapeBase:
-    def __init__(self, surface, pos):
-        self.surface = surface
+
+class ShapeBase(object):
+    def __init__(self, pos):
         self.pos = pos
 
     def setPos(self, pos=(0,0)):
@@ -17,20 +18,20 @@ class ShapeBase:
 
 
 class CircleShape(ShapeBase):
-    def __init__(self, surface, color, radius, pos=(0,0), width=0):
-        super(CircleShape, self).__init__(surface, pos)
+    def __init__(self, color, radius, pos=(0,0), width=0):
+        super(CircleShape, self).__init__(pos)
         self.color = color
         self.radius = radius
         self.width = width
 
     def draw(self):
-        pygame.draw.circle(self.surface, self.color, self.pos, self.radius, self.width)
+        pygame.draw.circle(config.surface, self.color, self.pos, self.radius, self.width)
 
 
 class ImageShape(ShapeBase):
     cashe = {}
-    def __init__(self, surface, path, pos=(0,0)):
-        super(ImageShape, self).__init__(surface, pos)
+    def __init__(self, path, pos=(0,0)):
+        super(ImageShape, self).__init__(pos)
         self.path = path
         self.image_surface = False
 
@@ -41,10 +42,10 @@ class ImageShape(ShapeBase):
                 self.image_surface = self.cashe[self.path][1]
             else:
                 self.image_surface = pygame.image.load(self.path).convert()
-                transColor = self.surface.get_at((0,0))
+                transColor = self.image_surface.get_at((0,0))
                 self.image_surface.set_colorkey(transColor)
-                self.cashe[self.path] = [1, self.surface]
-        self.surface.blit(self.image_surface, self.pos)
+                self.cashe[self.path] = [1, self.image_surface]
+        config.surface.blit(self.image_surface, self.pos)
 
     def reset(self):
         self.image_surface = False
@@ -56,7 +57,7 @@ class ImageShape(ShapeBase):
         self.reset()
 
 
-class Shape():
+class Shape(object):
     def __init__(self, *simple_shapes):
         self.simple_shapes = simple_shapes
         self.shape_pos_dep = []
