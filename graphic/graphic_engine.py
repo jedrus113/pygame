@@ -1,12 +1,12 @@
 import pygame
 from pygame.locals import Color
 
-#http://pygametutorials.wikidot.com/tutorials-three
 import config
 
 
 class GraphicEngine:
-    def __init__(self):
+    def __init__(self, logic):
+        self.logic = logic(self)
         self._running = True
         self.screen = None
         self._image_surf = None
@@ -47,11 +47,6 @@ class GraphicEngine:
             config.screen_size = event.size
             self.screen = pygame.display.set_mode(config.screen_size, *self.display_options)
 
-    def on_loop(self):
-        self.size += self.inc
-        if self.size >= self.max_size or self.size <= self.min_size:
-            self.inc = -self.inc
-
     def on_render(self):
         if self.speed <= 1:
             self.screen.fill(self.background)
@@ -62,19 +57,19 @@ class GraphicEngine:
 
             self.screen.blit(self._image_surf,(200,170))
 
-            self.clock.tick(60)
+            self.clock.tick(config.lock_fps)
             pygame.display.flip()
 
     def on_cleanup(self):
         pygame.quit()
  
-    def on_execute(self):
+    def run(self):
         if self.on_init() == False:
             self._running = False
  
         while( self._running ):
             for event in pygame.event.get():
                 self.on_event(event)
-            self.on_loop()
+            self.logic.on_loop()
             self.on_render()
         self.on_cleanup()
