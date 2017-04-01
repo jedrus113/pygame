@@ -46,16 +46,11 @@ class GraphicEngine:
             self.screen = pygame.display.set_mode(config.screen_size, *self.display_options)
 
     def on_loop(self):
-        pass
-
-    def one_step(self):
         self.size += self.inc
         if self.size >= self.max_size or self.size <= self.min_size:
             self.inc = -self.inc
 
-
     def on_render(self):
-        self.one_step()
         if self.speed <= 1:
             self.screen.fill([0, 0, 0])
 
