@@ -19,38 +19,27 @@ class GraphicEngine:
         pygame.init()
         config.surface = pygame.display.set_mode(config.screen_size, *self.display_options)
         pygame.display.set_caption(config.game_title)
+        config.keys = []
         self._running = True
  
     def on_event(self, event):
         if event.type == pygame.QUIT:
             self._running = False
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_1:
-                self.speed = 0
-            elif event.key == pygame.K_2:
-                self.speed = 1
-            elif event.key == pygame.K_0:
-                self.speed = 999
-                config.surface.fill([0, 0, 0])
-                font=pygame.font.Font(None,30)
-                scoretext=font.render("Fastforward", 1,(255,255,255))
-                config.surface.blit(scoretext, (20, 20))
-                pygame.display.flip()
+        elif event.type == pygame.KEYDOWN:
+            config.keys.append(event.key)
         elif event.type == pygame.VIDEORESIZE:
             config.screen_size = event.size
             config.surface = pygame.display.set_mode(config.screen_size, *self.display_options)
             pygame.display.flip()
 
     def on_render(self):
-        if self.speed <= 1:
-            config.surface.fill(self.background)
+        config.surface.fill(self.background)
 
-            for shape in self.shapes:
-                shape.draw()
+        for shape in self.shapes:
+            shape.draw()
 
-            if self.speed < 1:
-                self.clock.tick(config.lock_fps)
-            pygame.display.flip()
+        self.clock.tick(config.lock_fps)
+        pygame.display.flip()
 
     def on_cleanup(self):
         pygame.quit()
