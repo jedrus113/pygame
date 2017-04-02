@@ -4,18 +4,23 @@ from graphic.shape import *
 
 class GameLogic:
     def on_init(self):
-        self.size = 10
         self.inc = 1
+        self.inc_timer = 0
         shapes = []
-        shapes.append(ImageShape('graphic/pics/food.bmp', (230,170)))
-        self.circle = CircleShape((0,255,255), self.size, (200,200))
-        shapes.append(self.circle)
-        shapes.append(ImageShape('graphic/pics/food.bmp', (200,170)))
+        self.strawberry = ImageShape('graphic/pics/food.bmp', (230,170))
+        shapes.append(self.strawberry)
         config.graphic_engine.addShape(*shapes)
 
+        self.strawberry.fetch()
+        self.max_size = self.strawberry.size[0]+10
+        self.min_size = self.strawberry.size[0]
 
     def on_loop(self):
-        self.size += self.inc
-        self.circle.radius = self.size
-        if self.size >= 100 or self.size <= 10:
-            self.inc = -self.inc
+        if self.inc_timer < 1:
+            self.inc_timer = 2
+            self.strawberry.size = (self.strawberry.size[0]+self.inc, self.strawberry.size[1]+self.inc)
+            if self.strawberry.size[0] >= self.max_size  or self.strawberry.size[0] <= self.min_size:
+                self.inc = -self.inc
+        else:
+            self.inc_timer -= 1
+
