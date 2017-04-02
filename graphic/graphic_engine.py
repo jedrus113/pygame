@@ -47,7 +47,8 @@ class GraphicEngine:
             for shape in self.shapes:
                 shape.draw()
 
-            self.clock.tick(config.lock_fps)
+            if self.speed < 1:
+                self.clock.tick(config.lock_fps)
             pygame.display.flip()
 
     def on_cleanup(self):
