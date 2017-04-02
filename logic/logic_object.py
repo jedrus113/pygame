@@ -5,11 +5,7 @@ class Thing(object):
     def __init__(self, shape):
         self.shape = shape
         self.vector = [0.0,0.0]
-
-        config.graphic_engine.addShape(self.shape)
-
-        self.inc_timer = 0
-        self.inc = 1
+        config.objects.append(self)
 
     def addVector(self, vector):
         self.vector[0] += vector[0]
@@ -20,6 +16,9 @@ class Thing(object):
 
     def getPos(self):
         return self.shape.getPos()
+
+    def draw(self):
+        self.shape.draw()
 
     def on_loop(self):
         self.shape.move((int(self.vector[0]), int(self.vector[1])))

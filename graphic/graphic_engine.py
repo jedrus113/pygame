@@ -6,16 +6,8 @@ import config
 
 class GraphicEngine:
     def __init__(self):
-        self.speed = 0
         self.clock = pygame.time.Clock()
         self.display_options = (pygame.RESIZABLE,)
-        self.background = Color("black")
-
-    def addShape(self, *shapes):
-        self.shapes.extend(shapes)
-
-    def cleanShapes(self):
-        self.shapes = []
 
     def on_init(self):
         pygame.init()
@@ -34,10 +26,10 @@ class GraphicEngine:
             pygame.display.flip()
 
     def on_render(self):
-        config.surface.fill(self.background)
+        config.surface.fill(config.background)
 
-        for shape in self.shapes:
-            shape.draw()
+        for thing in config.objects:
+            thing.draw()
 
         self.clock.tick(config.lock_fps)
         pygame.display.flip()

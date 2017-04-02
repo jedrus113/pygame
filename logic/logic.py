@@ -5,7 +5,7 @@ from logic_object import Thing
 class GameLogic:
     def on_init(self):
         config.pause = True
-        config.graphic_engine.cleanShapes()
+        config.objects = []
         self.strawberry = Thing(ImageShape('graphic/pics/food.bmp', config.init_pos, config.player_size))
 
     def on_loop(self):
