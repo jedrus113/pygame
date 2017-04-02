@@ -38,7 +38,8 @@ class GraphicEngine:
                 pygame.display.flip()
         elif event.type == pygame.VIDEORESIZE:
             config.screen_size = event.size
-            pygame.display.update()
+            config.surface = pygame.display.set_mode(config.screen_size, *self.display_options)
+            pygame.display.flip()
 
     def on_render(self):
         if self.speed <= 1:
