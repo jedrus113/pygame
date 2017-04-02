@@ -10,10 +10,12 @@ class GraphicEngine:
         self.clock = pygame.time.Clock()
         self.display_options = (pygame.RESIZABLE,)
         self.background = Color("black")
-        self.shapes = []
 
     def addShape(self, *shapes):
         self.shapes.extend(shapes)
+
+    def cleanShapes(self):
+        self.shapes = []
 
     def on_init(self):
         pygame.init()

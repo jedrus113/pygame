@@ -23,6 +23,3 @@ class Thing(object):
 
     def on_loop(self):
         self.shape.move((int(self.vector[0]), int(self.vector[1])))
-        if self.getPos()[1] > config.screen_size[1] or self.getPos()[1] < 0:
-            self.vector = [0,0]
-            self.setPos([250,250])
