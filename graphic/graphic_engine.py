@@ -19,7 +19,6 @@ class GraphicEngine:
         pygame.init()
         config.surface = pygame.display.set_mode(config.screen_size, *self.display_options)
         pygame.display.set_caption(config.game_title)
-        config.keys = []
         self._running = True
  
     def on_event(self, event):
@@ -51,6 +50,7 @@ class GraphicEngine:
         config.logic.on_init()
  
         while( self._running ):
+            config.keys = []
             for event in pygame.event.get():
                 self.on_event(event)
             config.logic.on_loop()

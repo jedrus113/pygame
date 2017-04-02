@@ -39,24 +39,21 @@ class ImageShape(ShapeBase):
     def __init__(self, path, pos=(0,0), size=None):
         super(ImageShape, self).__init__(pos)
         self.path = path
-        self.image_surface = False
         self.size = size
 
-    def fetch(self):
-        if not self.image_surface:
-            if self.path in self.cashe:
-                self.cashe[self.path][0] += 1
-                self.image_surface = self.cashe[self.path][1]
-            else:
-                self.image_surface = pygame.image.load(self.path).convert()
-                transColor = self.image_surface.get_at((0, 0))
-                self.image_surface.set_colorkey(transColor)
-                self.cashe[self.path] = [1, self.image_surface]
-            if not self.size:
-                self.size = self.image_surface.get_size()
+        if self.path in self.cashe:
+            self.cashe[self.path][0] += 1
+            self.image_surface = self.cashe[self.path][1]
+        else:
+            self.image_surface = pygame.image.load(self.path).convert()
+            transColor = self.image_surface.get_at((0, 0))
+            self.image_surface.set_colorkey(transColor)
+            self.cashe[self.path] = [1, self.image_surface]
+        if not self.size:
+            self.size = self.image_surface.get_size()
+
 
     def draw(self):
-        self.fetch()
         config.surface.blit(pygame.transform.scale(self.image_surface, self.size), self.pos)
 
     def reset(self):
