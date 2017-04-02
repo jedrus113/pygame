@@ -7,6 +7,9 @@ class ShapeBase(object):
     def __init__(self, pos):
         self.pos = pos
 
+    def getPos(self):
+        return self.pos
+
     def setPos(self, pos=(0,0)):
         self.pos = pos
 
@@ -61,12 +64,16 @@ class Shape(object):
     def __init__(self, *simple_shapes):
         self.simple_shapes = simple_shapes
         self.shape_pos_dep = []
-        self.pos = self.simple_shapes[0].pos
+
+        pos = self.simple_shapes[0].getPos()
         for shape in self.simple_shapes[1:]:
-            self.shape_pos_dep.append((shape.pos[0] - self.pos[0], shape.pos[1] - self.pos[1]))
+            self.shape_pos_dep.append((shape.pos[0] - pos[0], shape.pos[1] - pos[1]))
 
     def addShape(self, *simple_shapes):
         self.simple_shapes.extend(simple_shapes)
+
+    def getPos(self):
+        return self.simple_shapes[0].getPos()
 
     def setPos(self, pos):
         self.simple_shapes[0].setPos(pos)
