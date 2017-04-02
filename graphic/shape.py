@@ -21,6 +21,7 @@ class ShapeBase(object):
 
 
 class CircleShape(ShapeBase):
+    # size / radius = int
     def __init__(self, color, radius, pos=(0,0), width=0):
         super(CircleShape, self).__init__(pos)
         self.color = color
@@ -33,6 +34,8 @@ class CircleShape(ShapeBase):
 
 class ImageShape(ShapeBase):
     cashe = {}
+    # path = str path to file with picture, left top corner show transparency
+    # size = tuple (withd, heitht) in px
     def __init__(self, path, pos=(0,0), size=None):
         super(ImageShape, self).__init__(pos)
         self.path = path
