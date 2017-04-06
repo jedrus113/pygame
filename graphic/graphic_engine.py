@@ -6,11 +6,10 @@ import config
 class GraphicEngine:
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.display_options = (pygame.RESIZABLE,)
 
     def on_init(self):
         pygame.init()
-        self.surface = pygame.display.set_mode(config.Window.size, *self.display_options)
+        self.surface = pygame.display.set_mode(config.Window.size, *config.Window.options)
         pygame.display.set_caption(config.Window.title)
         self._running = True
  
@@ -21,7 +20,7 @@ class GraphicEngine:
             config.logic.keyDown(event.key)
         elif event.type == pygame.VIDEORESIZE:
             config.Window.size = event.size
-            self.surface = pygame.display.set_mode(config.Window.size, *self.display_options)
+            self.surface = pygame.display.set_mode(config.Window.size, *config.Window.options)
             pygame.display.flip()
 
     def on_render(self):
