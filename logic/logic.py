@@ -29,6 +29,6 @@ class GameLogic:
             if self.strawberry.getPos()[1] + config.player_size[1] > config.screen_size[1] or self.strawberry.getPos()[1] < 0 or ((self.strawberry.getPos()[0]+config.player_size[0]-10 > self.pipe.getPos()[0] and self.strawberry.getPos()[0]-40 < self.pipe.getPos()[0]) and (self.strawberry.getPos()[1]+10 < self.pipe.height or self.strawberry.getPos()[1]+config.player_size[1]-10 > self.pipe.height + self.pipe.size)):
                 #config.score = 0
                 self.on_init()
-            elif self.strawberry.getPos()[0] > config.screen_size[0]:
+            elif self.pipe.getPos()[0] < 0:
                 config.score += 1
                 self.on_init()
