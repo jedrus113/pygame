@@ -18,6 +18,7 @@ class GameLogic:
     def on_loop(self):
         if config.World.pause and pygame.K_SPACE in self.keys:
             config.World.pause = False
+            self.on_init()
 
         if not config.World.pause:
             if pygame.K_SPACE in self.keys:
@@ -31,7 +32,7 @@ class GameLogic:
             pipe = config.World.objects[2]
             if self.strawberry.getPos()[1] + config.Player.size[1] > config.Window.size[1] or self.strawberry.getPos()[1] < 0 or ((self.strawberry.getPos()[0]+config.Player.size[0]-10 > pipe.getPos()[0] and self.strawberry.getPos()[0]-40 < pipe.getPos()[0]) and (self.strawberry.getPos()[1]+10 < pipe.height or self.strawberry.getPos()[1]+config.Player.size[1]-10 > pipe.height + pipe.size)):
                 config.World.score = 0
-                self.on_init()
+                config.World.pause = True
             elif pipe.getPos()[0] < 0:
                 config.World.score += 1
                 del config.World.objects[2]
