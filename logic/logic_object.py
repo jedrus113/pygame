@@ -29,7 +29,7 @@ class Thing(object):
 class Pipe(Thing):
     def __init__(self):
         self.size = randint(config.Pipes.minsize, config.Pipes.maxsize)
-        x = config.Pipes.default_x if config.Pipes.default_x >= 0 else config.Window.size[0] + config.Pipes.default_x
+        x = config.Window.size[0]
         self.height = randint(config.Pipes.min_top_gap, config.Window.size[1] - config.Pipes.min_down_gap - self.size)
         self.height = self.height if self.height >= 0 else config.Window.size[1] + self.height
 

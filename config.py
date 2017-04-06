@@ -24,7 +24,6 @@ class World:
     score_board_pos = (50,50)
 
 class Pipes:
-    default_x = 300
     min_gap_beetween_pipes = 200
     minsize = 90
     maxsize = 300
