@@ -48,10 +48,11 @@ class TextShape(ShapeBase):
     def __init__(self, pos, text):
         super(TextShape, self).__init__(pos)
         self.myfont = pygame.font.SysFont("monospace", 16)
+        self.myfont.set_bold(True)
         self.text = text
 
     def draw(self):
-        scoretext = self.myfont.render(self.text, 1, (0,0,0))
+        scoretext = self.myfont.render(self.text, 1, config.font_color)
         config.surface.blit(scoretext, self.getPos())
 
 class ImageShape(ShapeBase):
