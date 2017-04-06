@@ -8,12 +8,9 @@ class GameLogic:
         ScoreBoard()
 
     def on_init(self):
-        config.World.objects = []
-        self.scoreShape = TextShape((50,50), "Wynik: " + str(config.World.score))
-        Thing(self.scoreShape)
+        config.World.objects = [config.World.objects[0]]
         self.strawberry = Thing(ImageShape('graphic/pics/food.bmp', config.Player.init_pos, config.Player.size))
-
-        self.pipe = Pipe()
+        Pipe()
 
     def keyDown(self, key):
         self.keys.append(key)
@@ -27,15 +24,16 @@ class GameLogic:
                 self.strawberry.addVector(config.World.jump_vector)
             self.strawberry.addVector(config.World.gravity_vector)
 
-            # end level condition
-            if self.strawberry.getPos()[1] + config.Player.size[1] > config.Window.size[1] or self.strawberry.getPos()[1] < 0 or ((self.strawberry.getPos()[0]+config.Player.size[0]-10 > self.pipe.getPos()[0] and self.strawberry.getPos()[0]-40 < self.pipe.getPos()[0]) and (self.strawberry.getPos()[1]+10 < self.pipe.height or self.strawberry.getPos()[1]+config.Player.size[1]-10 > self.pipe.height + self.pipe.size)):
-                config.World.score = 0
-                self.on_init()
-            elif self.pipe.getPos()[0] < 0:
-                config.World.score += 1
-                del config.World.objects[2]
-                self.pipe = Pipe()
-
             for thing in config.World.objects:
                 thing.on_loop()
+
+            # end level condition
+            pipe = config.World.objects[2]
+            if self.strawberry.getPos()[1] + config.Player.size[1] > config.Window.size[1] or self.strawberry.getPos()[1] < 0 or ((self.strawberry.getPos()[0]+config.Player.size[0]-10 > pipe.getPos()[0] and self.strawberry.getPos()[0]-40 < pipe.getPos()[0]) and (self.strawberry.getPos()[1]+10 < pipe.height or self.strawberry.getPos()[1]+config.Player.size[1]-10 > pipe.height + pipe.size)):
+                config.World.score = 0
+                self.on_init()
+            elif pipe.getPos()[0] < 0:
+                config.World.score += 1
+                del config.World.objects[2]
+                Pipe()
         self.keys = []
