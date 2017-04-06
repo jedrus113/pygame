@@ -49,13 +49,7 @@ class ScoreBoard(Thing):
 class ShadowText(Thing):
     def __init__(self, pos, text, color1=None, color2=None, size=None, margin=1, bold=False):
         super(ShadowText, self).__init__(Shape(
-            TextShape((
-                pos[0]-margin,
-                pos[1]),
-                text,
-                size=size,
-                color=color2,
-                bold=bold),
+            TextShape((pos[0]-margin, pos[1]), text, size=size, color=color2, bold=bold),
             TextShape((pos[0], pos[1]-margin), text, size=size, color=color2, bold=bold),
             TextShape((pos[0], pos[1]+margin), text, size=size, color=color2, bold=bold),
             TextShape((pos[0]+margin, pos[1]), text, size=size, color=color2, bold=bold),
