@@ -19,7 +19,11 @@ class World:
     pause = True    # game start paused
 
 class Pipes:
-    default_x = -100
+    default_x = 300
+    minsize = 90
+    maxsize = 300
+    min_down_gap = 20
+    min_top_gap = 20
     color = pygame.Color("Orange") # init colour
     speed = 1   # init speed, pipes do not accelerate
 

@@ -1,3 +1,5 @@
+from random import randint
+
 import config
 from graphic.shape import RectShape, Shape
 
@@ -24,18 +26,13 @@ class Thing(object):
         self.shape.move(self.vector)
 
 class Pipe(Thing):
-    def __init__(self, pos, size):
-        try:
-            x = pos[0]
-            self.height = pos[1]
-        except TypeError:
-            x = config.Pipes.default_x
-            self.height = pos
-        x = x if x >= 0 else config.Window.size[0] + x
+    def __init__(self):
+        self.size = randint(config.Pipes.minsize, config.Pipes.maxsize)
+        x = config.Pipes.default_x if config.Pipes.default_x >= 0 else config.Window.size[0] + config.Pipes.default_x
+        self.height = randint(config.Pipes.min_top_gap, config.Window.size[1] - config.Pipes.min_down_gap - self.size)
         self.height = self.height if self.height >= 0 else config.Window.size[1] + self.height
-        self.size = size
 
         self.up = RectShape(config.Pipes.color, (x,0), (50,self.height))
-        self.down = RectShape(config.Pipes.color, (x,self.height+size), (50,config.Window.size[1]))
+        self.down = RectShape(config.Pipes.color, (x,self.height+self.size), (50,config.Window.size[1]))
         super(Pipe, self).__init__(Shape(self.down, self.up))
         self.vector = [-config.Pipes.speed, 0]

@@ -1,6 +1,5 @@
 from graphic.shape import *
 from logic_object import Thing, Pipe
-from random import randint
 
 
 class GameLogic:
@@ -13,10 +12,7 @@ class GameLogic:
         Thing(self.scoreShape)
         self.strawberry = Thing(ImageShape('graphic/pics/food.bmp', config.Player.init_pos, config.Player.size))
 
-        # test pipes setup
-        size = randint(90, 200)
-        height = randint(0, config.Window.size[1] - 200)
-        self.pipe = Pipe(height, size)
+        self.pipe = Pipe()
 
     def keyDown(self, key):
         self.keys.append(key)
