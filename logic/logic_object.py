@@ -32,7 +32,7 @@ class Pipe(Thing):
         self.height = randint(config.Pipes.min_top_gap, config.Window.size[1] - config.Pipes.min_down_gap - self.size)
         self.height = self.height if self.height >= 0 else config.Window.size[1] + self.height
 
-        self.up = RectShape(config.Pipes.color, (x,0), (50,self.height))
-        self.down = RectShape(config.Pipes.color, (x,self.height+self.size), (50,config.Window.size[1]))
+        self.up = RectShape(config.Pipes.color, (x,0), (config.Pipes.width, self.height))
+        self.down = RectShape(config.Pipes.color, (x,self.height+self.size), (config.Pipes.width, config.Window.size[1]))
         super(Pipe, self).__init__(Shape(self.down, self.up))
         self.vector = [-config.Pipes.speed, 0]
