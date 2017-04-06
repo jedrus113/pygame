@@ -8,6 +8,7 @@ class GameLogic:
         ScoreBoard()
 
     def on_init(self):
+        config.World.score = 0
         config.World.objects = []
         self.strawberry = Thing(ImageShape('graphic/pics/food.bmp', config.Player.init_pos, config.Player.size))
         Pipe()
@@ -31,7 +32,6 @@ class GameLogic:
             # end level condition
             pipe = config.World.objects[1]
             if self.strawberry.getPos()[1] + config.Player.size[1] > config.Window.size[1] + config.World.allow_out_of_window or self.strawberry.getPos()[1] < -config.World.allow_out_of_window or ((self.strawberry.getPos()[0]+config.Player.size[0]-10 > pipe.getPos()[0] and self.strawberry.getPos()[0]-40 < pipe.getPos()[0]) and (self.strawberry.getPos()[1]+10 < pipe.height or self.strawberry.getPos()[1]+config.Player.size[1]-10 > pipe.height + pipe.size)):
-                config.World.score = 0
                 config.World.pause = True
                 ShadowText((200,200), "Game Over", size=60, color1=pygame.Color("red"), color2=pygame.Color("white"), bold=True)
             elif pipe.getPos()[0] < 0:
@@ -41,6 +41,6 @@ class GameLogic:
             if config.Window.size[0] - config.World.objects[-1].getPos()[0] > config.Pipes.min_gap_beetween_pipes:
                 Pipe()
 
-            for thing in config.World.menu_objects:
-                thing.on_loop()
+        for thing in config.World.menu_objects:
+            thing.on_loop()
         self.keys = []
