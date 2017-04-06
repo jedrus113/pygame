@@ -16,8 +16,7 @@ class GameLogic:
         # test pipes setup
         size = randint(90, 200)
         height = randint(0, config.Window.size[1] - 200)
-        len_to_pipe = 650
-        self.pipe = Pipe((len_to_pipe, height), size)
+        self.pipe = Pipe(height, size)
 
     def keyDown(self, key):
         self.keys.append(key)

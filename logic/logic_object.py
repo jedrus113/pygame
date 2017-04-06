@@ -25,10 +25,17 @@ class Thing(object):
 
 class Pipe(Thing):
     def __init__(self, pos, size = 100):
-        x = pos[0] if pos[0] >= 0 else config.Window.size[0] - pos[0]
-        self.height = pos[1] if pos[1] >= 0 else config.Window.size[1] - pos[1]
+        try:
+            x = pos[0]
+            self.height = pos[1]
+        except TypeError:
+            x = config.Pipes.default_x
+            self.height = pos
+        x = x if x >= 0 else config.Window.size[0] + x
+        self.height = self.height if self.height >= 0 else config.Window.size[1] + self.height
         self.size = size
-        self.up = RectShape(config.Pipes.color, (pos[0],0), (50,self.height))
-        self.down = RectShape(config.Pipes.color, (pos[0],self.height+size), (50,config.Window.size[1]))
+
+        self.up = RectShape(config.Pipes.color, (x,0), (50,self.height))
+        self.down = RectShape(config.Pipes.color, (x,self.height+size), (50,config.Window.size[1]))
         super(Pipe, self).__init__(Shape(self.down, self.up))
         self.vector = [-config.Pipes.speed, 0]
