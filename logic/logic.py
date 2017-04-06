@@ -1,10 +1,11 @@
 from graphic.shape import *
-from logic_object import Thing, Pipe
+from logic_object import Thing, Pipe, ScoreBoard
 
 
 class GameLogic:
     def __init__(self):
         self.keys = []
+        ScoreBoard()
 
     def on_init(self):
         config.World.objects = []
@@ -26,14 +27,15 @@ class GameLogic:
                 self.strawberry.addVector(config.World.jump_vector)
             self.strawberry.addVector(config.World.gravity_vector)
 
-            for thing in config.World.objects:
-                thing.on_loop()
-
             # end level condition
             if self.strawberry.getPos()[1] + config.Player.size[1] > config.Window.size[1] or self.strawberry.getPos()[1] < 0 or ((self.strawberry.getPos()[0]+config.Player.size[0]-10 > self.pipe.getPos()[0] and self.strawberry.getPos()[0]-40 < self.pipe.getPos()[0]) and (self.strawberry.getPos()[1]+10 < self.pipe.height or self.strawberry.getPos()[1]+config.Player.size[1]-10 > self.pipe.height + self.pipe.size)):
                 config.World.score = 0
                 self.on_init()
             elif self.pipe.getPos()[0] < 0:
                 config.World.score += 1
+                del config.World.objects[2]
                 self.pipe = Pipe()
+
+            for thing in config.World.objects:
+                thing.on_loop()
         self.keys = []

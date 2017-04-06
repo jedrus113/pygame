@@ -8,7 +8,6 @@ class GraphicEngine:
         self.clock = pygame.time.Clock()
 
     def on_init(self):
-        pygame.init()
         self.surface = pygame.display.set_mode(config.Window.size, *config.Window.options)
         pygame.display.set_caption(config.Window.title)
         self._running = True

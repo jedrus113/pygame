@@ -1,7 +1,8 @@
 from random import randint
 
 import config
-from graphic.shape import RectShape, Shape
+from graphic.shape import RectShape, Shape, TextShape
+
 
 class Thing(object):
     def __init__(self, shape):
@@ -36,3 +37,11 @@ class Pipe(Thing):
         self.down = RectShape(config.Pipes.color, (x,self.height+self.size), (config.Pipes.width, config.Window.size[1]))
         super(Pipe, self).__init__(Shape(self.down, self.up))
         self.vector = [-config.Pipes.speed, 0]
+
+class ScoreBoard(Thing):
+    def __init__(self):
+        super(ScoreBoard, self).__init__(TextShape(config.World.score_board_pos, "Wynik: ", str(config.World.score)))
+
+    def on_loop(self):
+        self.shape.text2 = str(config.World.score)
+        super(ScoreBoard, self).on_loop()

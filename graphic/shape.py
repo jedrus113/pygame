@@ -45,15 +45,14 @@ class CircleShape(ShapeBase):
         pygame.draw.circle(config.graphic.surface, self.color, self.getPosInt(), self.size, self.width)
 
 class TextShape(ShapeBase):
-    def __init__(self, pos, text):
+    def __init__(self, pos, text, text2=""):
         super(TextShape, self).__init__(pos)
-        self.myfont = pygame.font.SysFont("monospace", 16)
-        self.myfont.set_bold(True)
-        self.text = text
+        self.text1 = text
+        self.text2 = text2
 
     def draw(self):
-        scoretext = self.myfont.render(self.text, 1, config.Font.color)
-        config.graphic.surface.blit(scoretext, self.getPos())
+        text_surface = config.Window.font.render(self.text1 + self.text2, 1, config.Font.color)
+        config.graphic.surface.blit(text_surface, self.getPos())
 
 class ImageShape(ShapeBase):
     cashe = {}

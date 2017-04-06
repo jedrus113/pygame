@@ -4,11 +4,15 @@ from graphic.graphic_engine import GraphicEngine
 from logic.logic import GameLogic
 
 
+pygame.init()
+
 class Window:
     title = "Flying strawberry"
     size = (800, 500)
     options = (pygame.RESIZABLE,)
     lock_fps = 60.0
+    font = pygame.font.SysFont("monospace", 16)
+    font.set_bold(True)
 
 class World:
     background = pygame.Color("black")
@@ -17,6 +21,7 @@ class World:
     score = 0   # init score
     objects = []    # object in world to take care of each render cycle
     pause = True    # game start paused
+    score_board_pos = (50,50)
 
 class Pipes:
     default_x = 300
