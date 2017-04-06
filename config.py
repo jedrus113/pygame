@@ -26,7 +26,7 @@ class World:
 class Pipes:
     min_gap_beetween_pipes = 200
     minsize = 90
-    maxsize = 300
+    maxsize = 150
     min_down_gap = 20
     min_top_gap = 20
     width = 50
