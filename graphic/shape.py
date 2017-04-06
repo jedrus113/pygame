@@ -31,7 +31,7 @@ class RectShape(ShapeBase):
         self.width = width
 
     def draw(self):
-        pygame.draw.rect(config.surface, self.color, (self.getPosInt()[0], self.getPosInt()[1], self.size[0], self.size[1]), self.width)
+        pygame.draw.rect(config.graphic.surface, self.color, (self.getPosInt()[0], self.getPosInt()[1], self.size[0], self.size[1]), self.width)
 
 class CircleShape(ShapeBase):
     # size / radius = int
@@ -42,7 +42,7 @@ class CircleShape(ShapeBase):
         self.width = width
 
     def draw(self):
-        pygame.draw.circle(config.surface, self.color, self.getPosInt(), self.size, self.width)
+        pygame.draw.circle(config.graphic.surface, self.color, self.getPosInt(), self.size, self.width)
 
 class TextShape(ShapeBase):
     def __init__(self, pos, text):
@@ -52,8 +52,8 @@ class TextShape(ShapeBase):
         self.text = text
 
     def draw(self):
-        scoretext = self.myfont.render(self.text, 1, config.font_color)
-        config.surface.blit(scoretext, self.getPos())
+        scoretext = self.myfont.render(self.text, 1, config.Font.color)
+        config.graphic.surface.blit(scoretext, self.getPos())
 
 class ImageShape(ShapeBase):
     cashe = {}
@@ -77,7 +77,7 @@ class ImageShape(ShapeBase):
 
 
     def draw(self):
-        config.surface.blit(pygame.transform.scale(self.image_surface, self.size), self.getPosInt())
+        config.graphic.surface.blit(pygame.transform.scale(self.image_surface, self.size), self.getPosInt())
 
     def reset(self):
         self.image_surface = False

@@ -5,7 +5,7 @@ class Thing(object):
     def __init__(self, shape):
         self.shape = shape
         self.vector = [0.0,0.0]
-        config.objects.append(self)
+        config.World.objects.append(self)
 
     def addVector(self, vector):
         self.vector[0] += vector[0]
@@ -27,7 +27,7 @@ class Pipe(Thing):
     def __init__(self, height, size = 100):
         self.height = height
         self.size = size
-        self.up = RectShape(config.pipes_color, (650,0), (50,height))
-        self.down = RectShape(config.pipes_color, (650,height+size), (50,config.screen_size[1]))
+        self.up = RectShape(config.Pipes.color, (250,0), (50,height))
+        self.down = RectShape(config.Pipes.color, (250,height+size), (50,config.Window.size[1]))
         super(Pipe, self).__init__(Shape(self.down, self.up))
-        self.vector = [-config.speed, 0]
+        self.vector = [-config.Pipes.speed, 0]
