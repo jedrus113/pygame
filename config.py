@@ -31,7 +31,7 @@ class Pipes:
     maxsize = 150
     min_down_gap = 20
     min_top_gap = 20
-    width = 50
+    width = 80
     color = pygame.Color("Orange") # init colour
     speed = 1   # init speed, pipes do not accelerate
 
