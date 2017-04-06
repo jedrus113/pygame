@@ -28,6 +28,9 @@ class GraphicEngine:
         for thing in config.World.objects:
             thing.draw()
 
+        for menu_object in config.World.menu_objects:
+            menu_object.draw()
+
         self.clock.tick(config.Window.lock_fps)
         pygame.display.flip()
 

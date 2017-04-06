@@ -5,10 +5,13 @@ from graphic.shape import RectShape, Shape, TextShape
 
 
 class Thing(object):
-    def __init__(self, shape):
+    def __init__(self, shape, menu=False):
         self.shape = shape
         self.vector = [0.0,0.0]
-        config.World.objects.append(self)
+        if menu:
+            config.World.menu_objects.append(self)
+        else:
+            config.World.objects.append(self)
 
     def addVector(self, vector):
         self.vector[0] += vector[0]
@@ -26,6 +29,7 @@ class Thing(object):
     def on_loop(self):
         self.shape.move(self.vector)
 
+
 class Pipe(Thing):
     def __init__(self):
         self.size = randint(config.Pipes.minsize, config.Pipes.maxsize)
@@ -38,13 +42,15 @@ class Pipe(Thing):
         super(Pipe, self).__init__(Shape(self.down, self.up))
         self.vector = [-config.Pipes.speed, 0]
 
+
 class ScoreBoard(Thing):
     def __init__(self):
-        super(ScoreBoard, self).__init__(TextShape(config.World.score_board_pos, "Wynik: ", str(config.World.score), bold=True))
+        super(ScoreBoard, self).__init__(TextShape(config.World.score_board_pos, "Wynik: ", str(config.World.score), bold=True), menu=True)
 
     def on_loop(self):
         self.shape.text2 = str(config.World.score)
         super(ScoreBoard, self).on_loop()
+
 
 class ShadowText(Thing):
     def __init__(self, pos, text, color1=None, color2=None, size=None, margin=1, bold=False):
