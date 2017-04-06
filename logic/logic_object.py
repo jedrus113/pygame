@@ -24,10 +24,10 @@ class Thing(object):
         self.shape.move(self.vector)
 
 class Pipe(Thing):
-    def __init__(self, height, size = 100):
-        self.height = height
+    def __init__(self, pos, size = 100):
+        self.height = pos[1]
         self.size = size
-        self.up = RectShape(config.Pipes.color, (250,0), (50,height))
-        self.down = RectShape(config.Pipes.color, (250,height+size), (50,config.Window.size[1]))
+        self.up = RectShape(config.Pipes.color, (pos[0],0), (50,self.height))
+        self.down = RectShape(config.Pipes.color, (pos[0],self.height+size), (50,config.Window.size[1]))
         super(Pipe, self).__init__(Shape(self.down, self.up))
         self.vector = [-config.Pipes.speed, 0]
