@@ -24,7 +24,7 @@ class Thing(object):
         self.shape.move(self.vector)
 
 class Pipe(Thing):
-    def __init__(self, pos, size = 100):
+    def __init__(self, pos, size):
         try:
             x = pos[0]
             self.height = pos[1]
