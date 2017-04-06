@@ -18,8 +18,8 @@ class GraphicEngine:
     def on_event(self, event):
         if event.type == pygame.QUIT:
             self._running = False
-        elif event.type == pygame.KEYDOWN:
-            config.keys.append(event.key)
+        elif event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+            config.keys.append(pygame.K_SPACE)
         elif event.type == pygame.VIDEORESIZE:
             config.screen_size = event.size
             config.surface = pygame.display.set_mode(config.screen_size, *self.display_options)
