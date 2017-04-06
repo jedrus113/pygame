@@ -35,5 +35,7 @@ class GameLogic:
             elif pipe.getPos()[0] < 0:
                 config.World.score += 1
                 del config.World.objects[2]
+
+            if config.Pipes.default_x - config.World.objects[-1].getPos()[0] > config.Pipes.min_gap_beetween_pipes:
                 Pipe()
         self.keys = []
