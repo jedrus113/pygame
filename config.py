@@ -22,6 +22,7 @@ class World:
     objects = []    # object in world to take care of each render cycle
     pause = True    # game start paused
     score_board_pos = (50,50)
+    allow_out_of_window = 50
 
 class Pipes:
     min_gap_beetween_pipes = 200

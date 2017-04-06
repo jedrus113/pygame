@@ -30,7 +30,7 @@ class GameLogic:
 
             # end level condition
             pipe = config.World.objects[2]
-            if self.strawberry.getPos()[1] + config.Player.size[1] > config.Window.size[1] or self.strawberry.getPos()[1] < 0 or ((self.strawberry.getPos()[0]+config.Player.size[0]-10 > pipe.getPos()[0] and self.strawberry.getPos()[0]-40 < pipe.getPos()[0]) and (self.strawberry.getPos()[1]+10 < pipe.height or self.strawberry.getPos()[1]+config.Player.size[1]-10 > pipe.height + pipe.size)):
+            if self.strawberry.getPos()[1] + config.Player.size[1] > config.Window.size[1] + config.World.allow_out_of_window or self.strawberry.getPos()[1] < -config.World.allow_out_of_window or ((self.strawberry.getPos()[0]+config.Player.size[0]-10 > pipe.getPos()[0] and self.strawberry.getPos()[0]-40 < pipe.getPos()[0]) and (self.strawberry.getPos()[1]+10 < pipe.height or self.strawberry.getPos()[1]+config.Player.size[1]-10 > pipe.height + pipe.size)):
                 config.World.score = 0
                 config.World.pause = True
                 ShadowText((200,200), "Game Over", size=60, color1=pygame.Color("red"), color2=pygame.Color("white"), bold=True)
