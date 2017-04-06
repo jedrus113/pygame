@@ -40,7 +40,7 @@ class Pipe(Thing):
 
 class ScoreBoard(Thing):
     def __init__(self):
-        super(ScoreBoard, self).__init__(TextShape(config.World.score_board_pos, "Wynik: ", str(config.World.score)))
+        super(ScoreBoard, self).__init__(TextShape(config.World.score_board_pos, "Wynik: ", str(config.World.score), bold=True))
 
     def on_loop(self):
         self.shape.text2 = str(config.World.score)

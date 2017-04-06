@@ -11,8 +11,8 @@ class Window:
     size = (800, 500)
     options = (pygame.RESIZABLE,)
     lock_fps = 60.0
-    font = pygame.font.SysFont("monospace", 16)
-    font.set_bold(True)
+    default_font_name = "monospace"
+    default_font_size = 16
 
 class World:
     background = pygame.Color("black")
